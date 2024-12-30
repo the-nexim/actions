@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: JavaScript Project Setup
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: 'Node.js version'
+        required: true
+        type: string
+
+env:
+  NODE_VERSION: ${{ inputs.node_version }}
+
+permissions:
+  contents: read
+
+jobs:
+  main:
+    name: Setup JavaScript Environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚀 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 🔧 Enable Corepack
+        run: corepack enable
+
+      - name: 📜 Get Yarn config
+        id: yarn_config
+        run: echo "cache_folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: 🗄️ Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.yarn_config.outputs.cache_folder }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
