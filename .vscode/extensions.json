@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "cardinal90.multi-cursor-case-preserve",
+    "christian-kohler.path-intellisense",
+    "davidanson.vscode-markdownlint",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "github.copilot-chat",
+    "github.vscode-github-actions",
+    "github.vscode-pull-request-github",
+    "streetsidesoftware.code-spell-checker-persian",
+    "streetsidesoftware.code-spell-checker",
+    "yzhang.markdown-all-in-one",
+    "gruntfuggly.todo-tree",
+    "arcanis.vscode-zipfs"
+  ]
+}

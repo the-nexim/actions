@@ -1,0 +1,12 @@
+{
+  "name": "@nexim/actions",
+  "packageManager": "yarn@4.6.0",
+  "type": "module",
+  "scripts": {
+    "format": "prettier . --write",
+    "upd": "yarn set version latest && yarn up '*' && yarn up '*' -R && yarn dlx @yarnpkg/sdks vscode && yarn dedupe"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
+}

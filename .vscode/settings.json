@@ -1,6 +1,32 @@
 {
-  "prettier.singleQuote": true,
-  "cSpell.words": [
-    "wireit"
+  "cSpell.language": "en,fa,fa-IR",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.wordWrapColumn": 120,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "git.autoStash": true,
+  "git.branchProtection": ["next"],
+  "githubPullRequests.ignoredPullRequestBranches": ["next"],
+  "npm.packageManager": "yarn",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+  "prettier.useEditorConfig": true,
+  "search.exclude": {
+    "**/.pnp.*": true,
+    "**/.yarn": true,
+    "**/*.lock": true
+  },
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "cSpell.words": ["nexim"],
+  "todo-tree.tree.scanMode": "workspace only",
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": ".github/copilot-instruction.md"
+    }
   ]
 }
