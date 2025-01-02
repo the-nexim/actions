@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: Build, Lint, and Test Project
+name: Publish NPM
 
 on:
   workflow_call:
@@ -10,13 +10,23 @@ on:
         required: true
         default: "lts/*"
         type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+        description: "NPM token"
+
+env:
+  NODE_VERSION: lts/*
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   main:
-    name: Build, Lint, and Test Project
+    if: github.repository_owner == 'the-nexim'
+
+    name: Publish NPM
     runs-on: ubuntu-latest
 
     steps:
@@ -56,7 +66,9 @@ jobs:
         env:
           WIREIT_LOGGER: metrics
 
-      - name: 🧪 Run Tests
-        run: yarn test
+      - name: 🚀 Publish
+        run: yarn run publish -- --yes
         env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
           WIREIT_LOGGER: metrics
