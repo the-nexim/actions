@@ -17,9 +17,15 @@ on:
       BOT_TOKEN:
         required: true
         description: "Nexim Bot token"
+      GPG_PRIVATE_KEY:
+        required: true
+        description: "GPG private key"
 
 permissions:
   contents: write
+
+env:
+  GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
 jobs:
   main:
@@ -35,10 +41,10 @@ jobs:
 
       - name: 🙂‍↔️ Import GPG key
         run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+          echo "${{ env.GPG_PRIVATE_KEY }}" | gpg --batch --import
           echo -e "5\ny\n" | gpg --batch --yes --command-fd 0 --edit-key ${{ secrets.GPG_KEY_ID }} trust quit
         env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
       - name: 🫡 Setup Git
         run: |
