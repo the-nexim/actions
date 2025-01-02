@@ -14,16 +14,16 @@ on:
 env:
   NODE_VERSION: lts/*
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
-  publish-npm:
+  main:
     if: github.repository_owner == 'the-nexim'
 
     name: Publish NPM
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - name: 📥 Checkout repository
@@ -55,7 +55,7 @@ jobs:
       - name: 🗃️ Cache Wireit
         uses: google/wireit@setup-github-actions-caching/v2
 
-      - name: 🏗️ Build TypeScript
+      - name: 🏗️ Build
         run: yarn build
         env:
           WIREIT_LOGGER: metrics

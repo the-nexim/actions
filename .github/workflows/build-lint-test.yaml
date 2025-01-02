@@ -46,7 +46,7 @@ jobs:
       - name: 📥 Install Dependencies
         run: yarn install --immutable
 
-      - name: 🏗️ Build TypeScript
+      - name: 🏗️ Build
         run: yarn build
         env:
           WIREIT_LOGGER: metrics

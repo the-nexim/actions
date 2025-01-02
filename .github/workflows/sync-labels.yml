@@ -3,21 +3,16 @@
 name: Sync labels
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - next
-    paths:
-      - .github/labels.yml
+  workflow_call:
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
-  labels:
+  main:
     name: Sync labels
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      issues: write
 
     steps:
       - name: ⤵️ Check out code from GitHub

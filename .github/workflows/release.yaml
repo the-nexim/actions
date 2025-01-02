@@ -15,13 +15,13 @@ env:
   NODE_VERSION: lts/*
   GPG_KEY_ID: ${{ vars.GPG_KEY_ID }}
 
+permissions:
+  contents: write
+
 jobs:
   main:
     name: Build & Lint & Test & Release
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
 
     steps:
       - name: ⤵️ Checkout repository
@@ -70,7 +70,7 @@ jobs:
       - name: 🗃️ Cache Wireit
         uses: google/wireit@setup-github-actions-caching/v2
 
-      - name: 🏗️ Build TypeScript
+      - name: 🏗️ Build
         run: yarn build
         env:
           WIREIT_LOGGER: metrics

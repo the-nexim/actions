@@ -4,20 +4,14 @@ name: Dependency Review
 
 on:
   workflow_call:
-    inputs:
-      node-version:
-        description: "Node.js version"
-        required: true
-        default: "lts/*"
-        type: string
+
+permissions:
+  contents: read
 
 jobs:
-  dependency-review:
+  main:
     name: Dependency Review
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
 
     steps:
       - name: ⤵️ Checkout repository
