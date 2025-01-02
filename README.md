@@ -11,4 +11,3 @@ List of reusable github actions for @the-nexim
 ## TODO
 
 - <https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions>
--
