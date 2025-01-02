@@ -22,7 +22,10 @@
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "cSpell.words": ["nexim"],
+  "cSpell.words": [
+    "nexim",
+    "wireit"
+  ],
   "todo-tree.tree.scanMode": "workspace only",
   "github.copilot.chat.codeGeneration.instructions": [
     {
