@@ -24,9 +24,6 @@ on:
 permissions:
   contents: write
 
-env:
-  GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
 jobs:
   main:
     name: Build & Lint & Test & Release
@@ -45,6 +42,7 @@ jobs:
           echo -e "5\ny\n" | gpg --batch --yes --command-fd 0 --edit-key ${{ secrets.GPG_KEY_ID }} trust quit
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
 
       - name: 🫡 Setup Git
         run: |
@@ -52,6 +50,8 @@ jobs:
           git config --global user.email "bot@thenexim.com"
           git config --global user.signingkey ${{ secrets.GPG_KEY_ID }}
           git config --global commit.gpgsign true
+        env:
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
 
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
