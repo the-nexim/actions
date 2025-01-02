@@ -8,6 +8,13 @@ on:
   release:
     types:
       - created
+  workflow_call:
+    inputs:
+      node-version:
+        description: "Node.js version"
+        required: true
+        default: "lts/*"
+        type: string
 
 env:
   NODE_VERSION: lts/*

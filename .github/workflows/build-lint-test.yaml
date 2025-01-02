@@ -6,9 +6,9 @@ on:
   workflow_call:
     inputs:
       node-version:
-        description: 'Node.js version'
+        description: "Node.js version"
         required: true
-        default: 'lts/*'
+        default: "lts/*"
         type: string
 
 permissions:
@@ -46,7 +46,7 @@ jobs:
       - name: 📥 Install Dependencies
         run: yarn install --immutable
 
-      - name: 🏗️ Build
+      - name: 🏗️ Build TypeScript
         run: yarn build
         env:
           WIREIT_LOGGER: metrics
