@@ -6,7 +6,7 @@ on:
   workflow_call:
     secrets:
       GITHUB_TOKEN:
-        description: "GitHub token"
+        description: 'GitHub token'
         required: true
 
 permissions:
