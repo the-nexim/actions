@@ -6,9 +6,9 @@ on:
   workflow_call:
     inputs:
       node-version:
-        description: "Node.js version"
+        description: 'Node.js version'
         required: true
-        default: "lts/*"
+        default: 'lts/*'
         type: string
 
 permissions:
