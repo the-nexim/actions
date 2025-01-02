@@ -10,6 +10,10 @@ on:
         required: true
         default: "lts/*"
         type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+        description: "NPM token"
 
 env:
   NODE_VERSION: lts/*
@@ -51,9 +55,6 @@ jobs:
 
       - name: 📥 Install Dependencies
         run: yarn install --immutable
-
-      - name: 🗃️ Cache Wireit
-        uses: google/wireit@setup-github-actions-caching/v2
 
       - name: 🏗️ Build
         run: yarn build

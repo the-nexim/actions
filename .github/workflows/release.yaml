@@ -5,15 +5,18 @@ name: Build & Lint & Test & Release
 on:
   workflow_call:
     inputs:
-      node-version:
+      NODE_VERSION:
         description: "Node.js version"
         required: true
         default: "lts/*"
         type: string
-
-env:
-  NODE_VERSION: lts/*
-  GPG_KEY_ID: ${{ vars.GPG_KEY_ID }}
+    secrets:
+      GPG_KEY_ID:
+        required: true
+        description: "GPG key ID"
+      BOT_TOKEN:
+        required: true
+        description: "Nexim Bot token"
 
 permissions:
   contents: write
@@ -33,7 +36,7 @@ jobs:
       - name: 🙂‍↔️ Import GPG key
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-          echo -e "5\ny\n" | gpg --batch --yes --command-fd 0 --edit-key ${{ env.GPG_KEY_ID }} trust quit
+          echo -e "5\ny\n" | gpg --batch --yes --command-fd 0 --edit-key ${{ secrets.GPG_KEY_ID }} trust quit
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
@@ -41,7 +44,7 @@ jobs:
         run: |
           git config --global user.name "Nexim Bot"
           git config --global user.email "bot@thenexim.com"
-          git config --global user.signingkey ${{ env.GPG_KEY_ID }}
+          git config --global user.signingkey ${{ secrets.GPG_KEY_ID }}
           git config --global commit.gpgsign true
 
       - name: 🔧 Setup Node.js
@@ -66,9 +69,6 @@ jobs:
 
       - name: 📥 Install Dependencies
         run: yarn install --immutable
-
-      - name: 🗃️ Cache Wireit
-        uses: google/wireit@setup-github-actions-caching/v2
 
       - name: 🏗️ Build
         run: yarn build

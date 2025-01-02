@@ -4,6 +4,10 @@ name: Sync labels
 
 on:
   workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        description: "GitHub token"
+        required: true
 
 permissions:
   contents: read
