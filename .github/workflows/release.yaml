@@ -6,20 +6,20 @@ on:
   workflow_call:
     inputs:
       NODE_VERSION:
-        description: "Node.js version"
+        description: 'Node.js version'
         required: true
-        default: "lts/*"
+        default: 'lts/*'
         type: string
     secrets:
       GPG_KEY_ID:
         required: true
-        description: "GPG key ID"
+        description: 'GPG key ID'
       BOT_TOKEN:
         required: true
-        description: "Nexim Bot token"
+        description: 'Nexim Bot token'
       GPG_PRIVATE_KEY:
         required: true
-        description: "GPG private key"
+        description: 'GPG private key'
 
 permissions:
   contents: write
