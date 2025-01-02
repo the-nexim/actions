@@ -5,7 +5,7 @@ name: Build & Lint & Test & Release
 on:
   workflow_call:
     inputs:
-      NODE_VERSION:
+      node-version:
         description: 'Node.js version'
         required: true
         default: 'lts/*'
@@ -56,7 +56,7 @@ jobs:
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ inputs.NODE_VERSION }}
+          node-version: ${{ inputs.node-version }}
 
       - name: 🛠️ Setup Node.js Corepack
         run: corepack enable
