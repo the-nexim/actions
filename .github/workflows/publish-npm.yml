@@ -3,11 +3,6 @@
 name: Publish NPM
 
 on:
-  workflow_dispatch:
-
-  release:
-    types:
-      - created
   workflow_call:
     inputs:
       node-version:

@@ -3,7 +3,6 @@
 name: Build & Lint & Test & Release
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       node-version:
