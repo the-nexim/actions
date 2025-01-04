@@ -15,6 +15,9 @@ on:
         default: 'lts/*'
         type: string
     secrets:
+      RELEASER_ACCOUNT_TOKEN:
+        required: true
+        description: 'GitHub token for the releaser account'
       GPG_KEY_ID:
         required: true
         description: 'GPG key ID'
@@ -32,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASER_ACCOUNT_TOKEN }}
 
       - name: 🙂‍↔️ Import GPG key
         run: |
@@ -92,5 +95,5 @@ jobs:
       - name: 🤖 Get Release
         run: yarn lerna version --yes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASER_ACCOUNT_TOKEN }}
           WIREIT_LOGGER: metrics
