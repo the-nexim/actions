@@ -4,6 +4,17 @@ name: Dependency Review
 
 on:
   workflow_call:
+    inputs:
+      base_ref:
+        description: 'The base ref for the dependency review'
+        required: false
+        type: string
+        default: 'next'
+      head_ref:
+        description: 'The head ref for the dependency review'
+        required: false
+        type: string
+        default: 'next'
 
 permissions:
   contents: read
@@ -19,3 +30,6 @@ jobs:
 
       - name: 🚀 Dependency Review
         uses: actions/dependency-review-action@v4
+        with:
+          base-ref: ${{ inputs.base_ref }}
+          head-ref: ${{ inputs.head_ref }}
