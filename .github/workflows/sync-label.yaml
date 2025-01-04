@@ -1,11 +1,13 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Sync labels
+
+# Required permission on the caller workflow
+# permissions:
+#   contents: read
+#   issues: write
+
 on:
   workflow_call:
-    secrets:
-      GITHUB_TOKEN:
-        description: 'GitHub token'
-        required: true
 
 jobs:
   main:

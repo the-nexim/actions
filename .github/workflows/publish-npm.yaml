@@ -2,6 +2,11 @@
 
 name: Publish NPM
 
+# Required permission on the caller workflow
+# permissions:
+#   contents: read
+#   id-token: write
+
 on:
   workflow_call:
     inputs:
@@ -19,10 +24,6 @@ on:
       NPM_TOKEN:
         required: true
         description: 'NPM token'
-
-permissions:
-  contents: read
-  id-token: write
 
 jobs:
   main:

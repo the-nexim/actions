@@ -2,6 +2,10 @@
 
 name: Build & Lint & Test & Release
 
+# Required permission on the caller workflow
+# permissions:
+#   contents: write
+
 on:
   workflow_call:
     inputs:
@@ -14,15 +18,9 @@ on:
       GPG_KEY_ID:
         required: true
         description: 'GPG key ID'
-      BOT_TOKEN:
-        required: true
-        description: 'Nexim Bot token'
       GPG_PRIVATE_KEY:
         required: true
         description: 'GPG private key'
-
-permissions:
-  contents: write
 
 jobs:
   main:
@@ -34,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🙂‍↔️ Import GPG key
         run: |
@@ -94,5 +92,5 @@ jobs:
       - name: 🤖 Get Release
         run: yarn lerna version --yes
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WIREIT_LOGGER: metrics

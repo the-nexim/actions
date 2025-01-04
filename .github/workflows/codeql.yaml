@@ -2,13 +2,14 @@
 
 name: CodeQL
 
+# Required permission on the caller workflow
+# permissions:
+#   actions: read
+#   contents: read
+#   security-events: write
+
 on:
   workflow_call:
-
-permissions:
-  actions: read
-  contents: read
-  security-events: write
 
 jobs:
   main:

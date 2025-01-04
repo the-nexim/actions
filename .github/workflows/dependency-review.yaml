@@ -2,6 +2,10 @@
 
 name: Dependency Review
 
+# Required permission on the caller workflow
+# permissions:
+#   contents: read
+
 on:
   workflow_call:
     inputs:
@@ -15,9 +19,6 @@ on:
         required: false
         type: string
         default: 'next'
-
-permissions:
-  contents: read
 
 jobs:
   main:
