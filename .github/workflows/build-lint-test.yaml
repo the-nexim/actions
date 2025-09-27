@@ -18,7 +18,7 @@ on:
 jobs:
   main:
     name: Build, Lint, and Test Project
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2404
 
     steps:
       - name: 📥 Checkout repository
