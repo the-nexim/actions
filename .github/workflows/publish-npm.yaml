@@ -41,6 +41,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
           registry-url: ${{ inputs.npm-registry-url }}
+          package-manager-cache: false
 
       - name: 🛠️ Setup Node.js Corepack
         run: corepack enable
