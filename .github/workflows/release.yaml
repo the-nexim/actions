@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: ⤵️ Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.RELEASER_ACCOUNT_TOKEN }}
@@ -55,7 +55,7 @@ jobs:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
 
       - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
           package-manager-cache: false
@@ -68,7 +68,7 @@ jobs:
         run: echo "cache_folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - name: 🗄️ Cache Layer
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.yarn_config.outputs.cache_folder }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
