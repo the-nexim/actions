@@ -19,37 +19,27 @@ jobs:
   main:
     name: Build, Lint, and Test Project
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    env:
+      WIREIT_LOGGER: metrics
 
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v6
 
+      - name: 🛠️ Setup Node.js Corepack
+        run: corepack enable
+
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
-          package-manager-cache: false
-
-      - name: 🛠️ Setup Node.js Corepack
-        run: corepack enable
-
-      - name: 📦 Get Yarn Config
-        id: yarn_config
-        run: echo "cache_folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      - name: 🗄️ Cache Layer
-        uses: actions/cache@v5
-        with:
-          path: ${{ steps.yarn_config.outputs.cache_folder }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: 'yarn'
 
       - name: 🗂️ Cache .cache folders
         uses: actions/cache@v5
         with:
           path: packages/**/.cache
-          key: ${{ runner.os }}-cache
+          key: ${{ runner.os }}-cache-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-cache-
 
@@ -58,15 +48,9 @@ jobs:
 
       - name: 🏗️ Build
         run: yarn build
-        env:
-          WIREIT_LOGGER: metrics
 
       - name: 🧹 Run ESLint
         run: yarn lint
-        env:
-          WIREIT_LOGGER: metrics
 
       - name: 🧪 Run Tests
         run: yarn test
-        env:
-          WIREIT_LOGGER: metrics

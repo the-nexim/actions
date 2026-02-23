@@ -29,6 +29,8 @@ jobs:
   main:
     name: Build & Lint & Test & Release
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    env:
+      WIREIT_LOGGER: metrics
 
     steps:
       - name: ⤵️ Checkout repository
@@ -54,47 +56,28 @@ jobs:
         env:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
 
+      - name: 🛠️ Setup Node.js Corepack
+        run: corepack enable
+
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
-          package-manager-cache: false
-
-      - name: 🛠️ Setup Node.js Corepack
-        run: corepack enable
-
-      - name: 📦 Get Yarn Config
-        id: yarn_config
-        run: echo "cache_folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      - name: 🗄️ Cache Layer
-        uses: actions/cache@v5
-        with:
-          path: ${{ steps.yarn_config.outputs.cache_folder }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: 'yarn'
 
       - name: 📥 Install Dependencies
         run: yarn install --immutable
 
       - name: 🏗️ Build
         run: yarn build
-        env:
-          WIREIT_LOGGER: metrics
 
       - name: 🧹 Run ESLint
         run: yarn lint
-        env:
-          WIREIT_LOGGER: metrics
 
       - name: 🧪 Run Tests
         run: yarn test
-        env:
-          WIREIT_LOGGER: metrics
 
       - name: 🤖 Get Release
         run: yarn lerna version --yes
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASER_ACCOUNT_TOKEN }}
-          WIREIT_LOGGER: metrics

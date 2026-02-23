@@ -31,32 +31,22 @@ jobs:
 
     name: Publish NPM
     runs-on: ubuntu-latest
+    env:
+      WIREIT_LOGGER: metrics
 
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v6
+
+      - name: 🛠️ Setup Node.js Corepack
+        run: corepack enable
 
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
           registry-url: ${{ inputs.npm-registry-url }}
-          package-manager-cache: false
-
-      - name: 🛠️ Setup Node.js Corepack
-        run: corepack enable
-
-      - name: 📦 Get Yarn Config
-        id: yarn_config
-        run: echo "cache_folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      - name: 🗄️ Cache Layer
-        uses: actions/cache@v5
-        with:
-          path: ${{ steps.yarn_config.outputs.cache_folder }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: 'yarn'
 
       - name: 📥 Install Dependencies
         run: yarn install --immutable
@@ -64,7 +54,6 @@ jobs:
       - name: 🏗️ Build
         run: yarn build
         env:
-          WIREIT_LOGGER: metrics
           NODE_ENV: production
 
       - name: 🚀 Publish
@@ -72,4 +61,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
-          WIREIT_LOGGER: metrics
