@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: ⤵️ Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.RELEASER_ACCOUNT_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
         run: corepack enable
 
       - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ inputs.node-version }}
           cache: 'yarn'
